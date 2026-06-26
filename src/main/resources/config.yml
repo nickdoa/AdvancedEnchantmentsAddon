@@ -1,0 +1,165 @@
+settings:
+  message-throttle-seconds: 2
+  bless:
+    cooldown-seconds: 60
+
+holy-white-scroll-corruption:
+  enabled: true
+  max-applications: 3
+  semi-corrupt-lore: "&c&lSEMI CORRUPT (&7%count%/%max% holy white scrolls applied&c&l)"
+  corrupted-lore: "&c&lCORRUPTED (&7cannot be protected&c&l)"
+
+heroic-upgrade:
+  # Command syntax:
+  # /ae giveitem <player> heroicupgrade [amount] [success]
+  # /ae giveitem <player> heroicupgrade [amount] success:<success>
+  default-success: 100
+  # Effective durability is tracked by the addon because this server API
+  # does not expose true custom max durability for items.
+  durability-bonus-percent: 5
+  item:
+    material: YELLOW_DYE
+    name: "&#FB8A53&lH&#FC9957&le&#FCA75A&lr&#FDB65E&lo&#FEC562&li&#FED365&lc &#FFE269&lU&#FED365&lp&#FEC562&lg&#FDB65E&lr&#FCA75A&la&#FC9957&ld&#FB8A53&le &6&l(&e%success%%&6&l)"
+    lore:
+      - "&7Apply to any diamond or netherite armor"
+      - "&7piece or weapon to imbue it with the power"
+      - "&7of &6heroic resolve&7."
+      - ""
+      - "&7This will increase the item's base stats and"
+      - "&7convert it to gold material if it is a weapon."
+  applied-lore:
+    armor: "&4This armor is stronger than netherite."
+    weapon: "&4This weapon is stronger than netherite."
+
+godly-transmog-scroll:
+  # Command syntax:
+  # /ae giveitem <player> godlytransmogscroll [amount]
+  menu-title: "&8Godly Transmog"
+  add-lore-count-to-name: true
+  name-count-format: " &d[&b%count%&d]"
+  item:
+    material: PAPER
+    name: "&#FF0000&lG&#FF120A&lo&#FF2514&ld&#FF371F&ll&#FF4929&ly &#FF5C33&lT&#FF6E3D&lr&#FF8048&la&#FF9352&ln&#FFA55C&ls&#FF9352&lm&#FF8048&lo&#FF6E3D&lg &#FF5C33&lS&#FF4929&lc&#FF371F&lr&#FF2514&lo&#FF120A&ll&#FF0000&ll"
+    lore:
+      - "&7Apply to equipment to &6&ncustomize"
+      - "&7the order of &4custom &fenchants &7"
+      - "&7displayed on the item."
+      - ""
+      - "&6&oPlace scroll on item to apply."
+
+heroic-black-scroll:
+  # Command syntax:
+  # /ae giveitem <player> heroicblackscroll [amount] [success]
+  # /ae giveitem <player> heroicblackscroll [amount] success:<success>
+  default-success-min: 17
+  default-success-max: 20
+  item:
+    material: BLACK_DYE
+    name: "&d&lHeroic Black Scroll"
+    lore:
+      - "&7Removes a random &dHeroic &7enchantment"
+      - "&7from an item and converts"
+      - "&7it into a &d%success%% &7success book."
+      - ""
+      - "&d&l(!) &dRemoves Heroic Enchantments"
+
+holy-water:
+  # Command syntax:
+  # /ae giveitem <player> holywater [amount] [max]
+  # /ae giveitem <player> holywater [amount] max:<max>
+  default-max-applications: 4
+  item:
+    material: MILK_BUCKET
+    name: "&6&lHoly Water [&eMax: %max%&6&l]"
+    lore:
+      - "&eA rare consumable item that"
+      - "&eincreases the max number of Holy White Scrolls"
+      - "&ethat can be applied to an item by %increase%."
+      - ""
+      - "&7Apply to any (semi) corrupt item."
+
+lore-line:
+  # Command syntax:
+  # /ae giveitem <player> loreline [amount]
+  max-lines-per-item: 2
+  item:
+    material: ORANGE_DYE
+    name: "&6&lCustom Lore Tag"
+    lore:
+      - "&7Add one line of custom lore"
+      - "&7to the item in your hand."
+      - ""
+      - "&6&oRight click to use."
+
+messages:
+  reloaded: "&aAdvancedEnchantmentsAddon reloaded."
+  blessed: "&e&l* BLESSED! *"
+  bless-cooldown: "&cYou can use /bless again in &f%seconds%s&c."
+  effect-applying: "&a&l[+] &a%enchant%: &7applying %effect%"
+  effect-removing: "&c&l[-] &c%enchant%: &7removing %effect%"
+  not-enough-souls: "&cYou need &f%souls% &csouls to activate &f%enchant%&c. Current: &f%available%&c."
+  lore-line-no-permission: "&c&l(!) &cYou do not have permission to give Lore Lines."
+  lore-line-offline-player: "&c&l(!) &cThat player is not online."
+  lore-line-give-usage: "&c&l(!) &cUsage: /ae giveitem <player> loreline [amount]"
+  lore-line-given: "&a&l(!) &aGave &f%amount%x &6Lore Line &ato &f%player%&a."
+  lore-line-prompt: "&6&l(!) &6Type the lore line in chat. Color codes are allowed."
+  lore-line-no-target: "&c&l(!) &cHold the item you want to add lore to in your main hand. Your Lore Line was returned."
+  lore-line-empty: "&c&l(!) &cLore line cannot be blank. Your Lore Line was returned."
+  lore-line-max-reached: "&c&l(!) &cThat item already has the maximum of &f%max% &ccustom lore lines. Your Lore Line was returned."
+  lore-line-applied: "&6&l(!) &6Lore line added."
+  holy-water-no-permission: "&c&l(!) &cYou do not have permission to give Holy Water."
+  holy-water-offline-player: "&c&l(!) &cThat player is not online."
+  holy-water-give-usage: "&c&l(!) &cUsage: /ae giveitem <player> holywater [amount] [max]"
+  holy-water-given: "&a&l(!) &aGave &f%amount%x &eHoly Water &7(Max: %max%)&a to &f%player%&a."
+  holy-water-invalid-target: "&c&l(!) &cHoly Water can only be applied to semi-corrupt or corrupted items."
+  holy-water-max-too-low: "&c&l(!) &cThat item already allows up to &f%current% &cHoly White Scrolls. Use Holy Water with Max greater than &f%current%&c."
+  holy-water-applied: "&e&l(!) &eHoly Water applied. Max Holy White Scrolls: &f%max%&e."
+  holy-white-scroll-already-protected: "&c&l(!) &cThat item already has a Holy White Scroll applied."
+  holy-white-scroll-corrupted: "&c&l(!) &cThat item is corrupted and cannot be protected."
+  heroic-black-scroll-no-permission: "&c&l(!) &cYou do not have permission to give Heroic Black Scrolls."
+  heroic-black-scroll-offline-player: "&c&l(!) &cThat player is not online."
+  heroic-black-scroll-give-usage: "&c&l(!) &cUsage: /ae giveitem <player> heroicblackscroll [amount] [success]"
+  heroic-black-scroll-given: "&a&l(!) &aGave &f%amount%x &dHeroic Black Scroll &7(%success%% success)&a to &f%player%&a."
+  heroic-black-scroll-invalid-target: "&c&l(!) &cHeroic Black Scrolls can only be applied to one item at a time."
+  heroic-black-scroll-no-enchants: "&c&l(!) &cThat item does not have any Heroic enchantments."
+  heroic-black-scroll-book-failed: "&c&l(!) &cCould not create the returned Heroic enchantment book."
+  heroic-black-scroll-applied: "&d&l(!) &dExtracted &f%enchant% &das a &f%success%% &dsuccess book."
+  godly-transmog-no-permission: "&c&l(!) &cYou do not have permission to give Godly Transmog Scrolls."
+  godly-transmog-offline-player: "&c&l(!) &cThat player is not online."
+  godly-transmog-give-usage: "&c&l(!) &cUsage: /ae giveitem <player> godlytransmogscroll [amount]"
+  godly-transmog-given: "&a&l(!) &aGave &f%amount%x &dGodly Transmog Scroll &ato &f%player%&a."
+  godly-transmog-invalid-target: "&c&l(!) &cGodly Transmog Scrolls can only be applied to one item at a time."
+  godly-transmog-no-enchants: "&c&l(!) &cThat item does not have any custom enchants to reorder."
+  godly-transmog-too-many-enchants: "&c&l(!) &cThat item has too many custom enchants for this menu. Max: &f%max%&c."
+  godly-transmog-applied: "&d&l(!) &dGodly Transmog applied."
+  heroic-no-permission: "&c&l(!) &cYou do not have permission to give Heroic Upgrades."
+  heroic-offline-player: "&c&l(!) &cThat player is not online."
+  heroic-give-usage: "&c&l(!) &cUsage: /ae giveitem <player> heroicupgrade [amount] [success]"
+  heroic-given: "&a&l(!) &aGave &f%amount%x &aHeroic Upgrade &7(%success%% success)&a to &f%player%&a."
+  heroic-invalid-target: "&c&l(!) &cHeroic Upgrades can only be applied to diamond or netherite swords, axes, and armor."
+  heroic-already-upgraded: "&c&l(!) &cThat item has already has a heroic upgrade applied."
+  heroic-applied: "&6Heroic Upgrade successfully applied!"
+  heroic-failed: "&cHeroic Upgrade failed..."
+
+sounds:
+  # Sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+  # Format: SOUND:VOLUME:PITCH
+  # Set any action sound list to [] to silence it.
+  heroic-upgrade-success:
+    - 'ENTITY_PLAYER_LEVELUP:1.0:1.0'
+  heroic-upgrade-failed:
+    - 'ENTITY_ITEM_BREAK:1.0:0.7'
+  godly-transmog-applied:
+    - 'ENTITY_PLAYER_LEVELUP:1.0:1.25'
+  heroic-black-scroll-applied:
+    - 'BLOCK_ANVIL_USE:1.0:1.4'
+  holy-water-applied:
+    - 'ITEM_BOTTLE_FILL:1.0:1.3'
+  lore-line-prompt:
+    - 'BLOCK_NOTE_BLOCK_PLING:1.0:1.4'
+  lore-line-applied:
+    - 'ENTITY_PLAYER_LEVELUP:1.0:1.2'
+  lore-line-failed:
+    - 'ENTITY_ITEM_BREAK:1.0:0.7'
+  soul-use:
+    - 'ENTITY_GENERIC_EAT:3.0:0.5'

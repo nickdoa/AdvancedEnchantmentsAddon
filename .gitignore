@@ -1,0 +1,5 @@
+build/
+libs/
+enchantmentstesting.yml
+*.class
+*.log

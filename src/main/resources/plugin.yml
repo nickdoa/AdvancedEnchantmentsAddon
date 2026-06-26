@@ -1,0 +1,51 @@
+name: AdvancedEnchantmentsAddon
+version: 0.1.0
+main: me.nickd.advancedenchantmentsaddon.AdvancedEnchantmentsAddonPlugin
+api-version: "1.13"
+depend:
+  - AdvancedEnchantments
+softdepend:
+  - EliteMobs
+authors:
+  - nickd
+description: Addon features and fixes for AdvancedEnchantments.
+
+commands:
+  aeaddon:
+    description: Reload AdvancedEnchantmentsAddon configuration and run temporary tests.
+    usage: /aeaddon reload
+    aliases:
+      - aea
+      - advancedenchantmentsaddon
+  bless:
+    description: Cure yourself of negative potion effects.
+    usage: /bless
+
+permissions:
+  advancedenchantmentsaddon.reload:
+    description: Allows reloading AdvancedEnchantmentsAddon.
+    default: op
+  advancedenchantmentsaddon.test:
+    description: Allows using temporary AdvancedEnchantmentsAddon test commands.
+    default: op
+  advancedenchantmentsaddon.bless:
+    description: Allows using /bless.
+    default: true
+  advancedenchantmentsaddon.bless.cooldown.bypass:
+    description: Allows bypassing the /bless cooldown.
+    default: op
+  advancedenchantmentsaddon.heroicupgrade.give:
+    description: Allows giving Heroic Upgrades through /ae giveitem.
+    default: op
+  advancedenchantmentsaddon.godlytransmog.give:
+    description: Allows giving Godly Transmog Scrolls through /ae giveitem.
+    default: op
+  advancedenchantmentsaddon.heroicblackscroll.give:
+    description: Allows giving Heroic Black Scrolls through /ae giveitem.
+    default: op
+  advancedenchantmentsaddon.holywater.give:
+    description: Allows giving Holy Water through /ae giveitem.
+    default: op
+  advancedenchantmentsaddon.loreline.give:
+    description: Allows giving Lore Lines through /ae giveitem.
+    default: op

@@ -1,0 +1,269 @@
+settings:
+  debug-death-save: false
+
+  guard-summon-throttle:
+    # When true, summon enchants are spaced out per player.
+    # This affects summon effects like GUARD, RUSE_ZOMBIES, VISUAL_SPIRITS,
+    # and OBSIDIAN_GUARDIANS.
+    enabled: true
+    cooldown-ticks: 100
+    exempt-enchants:
+      - epidemic
+      - epidemiccarrier
+      - plaguecarrier
+      - selfdestruct
+
+  enchants:
+    # Prevent all custom enchant activations from bleed, fire tick, custom/tick damage,
+    # or damage caused by summons. Physical melee hits and projectiles can still proc.
+    block-from-non-direct-damage: true
+
+  summons:
+    # Prevent summon effects from activating from bleed, fire tick, custom/tick damage,
+    # or damage caused by another summon.
+    block-from-non-direct-damage: true
+
+  native-damage:
+    # AE's native DO_HARM and BLEED are custom damage events.
+    # This strips their velocity change so they do not knock players around.
+    remove-custom-damage-knockback: true
+
+  effect-notifications:
+    enabled: true
+
+ruse-zombies:
+  # Used by RUSE_ZOMBIES:<count>[:name] for Robotic Ruse.
+  lifetime-ticks: 140
+  show-name: true
+  name: "&d%victimname%'s%space%Robot"
+  # false = spawn around the player wearing/proccing the enchant.
+  # true = spawn around the enemy target.
+  spawn-at-target: false
+  spawn-radius-blocks: 3
+  follow-range-blocks: 48.0
+  base-movement-speed: 0.32
+  chase-nudge: 0.14
+  speed-amplifier: 7
+  fire-resistance: true
+  retarget-interval-ticks: 0
+  hunger-on-hit:
+    enabled: true
+    duration-ticks: 140
+    amplifier: 3
+
+visual-spirits:
+  # Used by VISUAL_SPIRITS:<seconds>:<amount>:<name> for Spirits.
+  health: 10.0
+  spawn-radius-blocks: 1.4
+  regeneration-radius-blocks: 5.0
+  regeneration-refresh-ticks: 20
+  regeneration-duration-ticks: 60
+  silent: true
+  glowing: false
+  show-name: true
+
+obsidian-guardians:
+  # Used by OBSIDIAN_GUARDIANS:<count>:<duration-ticks>:<damage>:<pull-strength>:<slow-amplifier>:<slow-ticks>[:name]
+  lifetime-ticks: 240
+  spawn-radius-blocks: 1.6
+  follow-range-blocks: 48.0
+  movement-speed: 0.5
+  health: 40.0
+  # Delay before a newly spawned guardian can damage, slow, or pull its target.
+  # 20 ticks = 1 second.
+  attack-delay-ticks: 20
+  silent: false
+  show-name: true
+  name: "&d&lObsidian Guardian"
+
+epidemic-carriers:
+  # Used by EPIDEMIC_CARRIER:<count>:<blindness-amplifier>:<blindness-ticks>:<confusion-amplifier>:<confusion-ticks>[:<slowness-amplifier>:<slowness-ticks>][:name]
+  lifetime-ticks: 240
+  show-name: true
+  name: "&a&l%victimname%'s%space%Stun%space%Creeper"
+  # false = spawn around the player wearing/proccing the enchant.
+  # true = spawn around the enemy target.
+  spawn-at-target: false
+  spawn-radius-blocks: 1.8
+  follow-range-blocks: 48.0
+  movement-speed: 0.28
+  explosion-radius: 3
+
+divine-immolation:
+  # Used by DIVINE_IMMOLATION for Divine Immolation.
+  # Reapplying refreshes the duration instead of stacking duplicate damage loops.
+  # The activation notification is the chat message plus the hit sound.
+  activation-notification-cooldown-ticks: 40
+  ticks: 4
+  interval-ticks: 20
+  radius-blocks: 5.0
+  damage-per-tick: 5.0
+  # Wither I is used for the black-heart visual without adding extra native Wither damage.
+  wither-amplifier: 1
+  # Keep this longer than interval-ticks so the hearts stay black between addon damage pulses.
+  wither-duration-ticks: 25
+  affect-summons: false
+  attacker-message: "&c&l** DIVINE IMMOLATION ** &8inflicted on %victim name%"
+  victim-message: "&c&l** DIVINE IMMOLATION ** &8from %attacker name%"
+  hit-sounds:
+    - 'ENTITY_WITHER_HURT:1.0:0.7'
+  tick-sounds:
+    - 'ENTITY_ZOMBIFIED_PIGLIN_AMBIENT:1.0:0.8'
+
+inertia:
+  # Proactively clears custom-enchant Slowness from players wearing Inertia boots.
+  scan-interval-ticks: 2
+  # Wait this many ticks after a custom Slowness applies before Inertia removes it.
+  # This lets the effect actually proc client-side instead of looking cancelled.
+  cleanse-delay-ticks: 3
+  message: "&6&l* INERTIA [&7%souls% souls remaining&6&l] *"
+  message-throttle-millis: 250
+  sound-throttle-millis: 250
+  sounds:
+    - 'ENTITY_PLAYER_BREATH:0.6:0.7'
+  # If Inertia removed Drunk's Slowness, restore it when the Inertia boots are removed.
+  restore-drunk-slowness-on-boot-removal: true
+  # -1 uses Minecraft's real infinite potion duration instead of a huge countdown.
+  restored-drunk-slowness-duration-ticks: -1
+
+immortal:
+  enabled: true
+  interval-ticks: 20
+  souls-per-piece: 5
+  feedback-cooldown-ticks: 200
+  message:
+    - ""
+    - "&6&l** IMMORTAL ** &8[%pieces%x]"
+    - "&7You have &7&n%souls%&r &7souls left."
+    - ""
+  sounds:
+    - 'ENTITY_PLAYER_LEVELUP:0.5:0.5'
+
+diminish:
+  message: "&6&l* DIMINISH [&fNext Max DMG: %damage%] &6&l*"
+
+vengeful-diminish:
+  message: "&d&l* VENGEFUL DIMINISH [&fNext Max DMG: %damage%] &d&l*"
+
+enchant-reflect:
+  enabled: true
+  # Normal Enchant Reflect can reflect enemy offensive enchants up to Legendary.
+  # Stack-based offensive enchants should stay here so they cannot reflect onto themselves.
+  blocked-enchants:
+    - rage
+    - solitude
+    - perfectsolitude
+  chance-per-level-percent: 3.0
+  max-chance-percent: 30.0
+  message: "&6&l* ENCHANT REFLECT * &8Reflected &6%enchant% &8back to &f%attacker name%&8."
+
+heroic-enchant-reflect:
+  # Heroic Enchant Reflect can reflect enemy offensive enchants up to Heroic, but never Soul enchants.
+  chance-per-level-percent: 4.0
+  max-chance-percent: 40.0
+  message: "&d&l* HEROIC ENCHANT REFLECT * &8Reflected &d%enchant% &8back to &f%attacker name%&8."
+
+silence:
+  # Enchants cancelled while a player is silenced.
+  disabled-enchants:
+    - endershift
+    - molten
+    - selfdestruct
+    - plaguecarrier
+    - ragdoll
+    - trickster
+    - smokebomb
+    - undeadruse
+    - roboticruse
+    - voodoo
+    - cactus
+    - shockwave
+    - hardened
+    - wither
+    - tank
+    - valor
+    - dodge
+    - guardians
+    - obsidianguardians
+    - heavy
+    - marksman
+    - diminish
+    - deathbringer
+    - armored
+    - enlightened
+    - enlighted
+    - deathgod
+    - planetarydeathbringer
+    - divineenlighted
+    - vengefuldiminish
+    - etherealdodge
+    - paladinarmored
+    - arrowdeflect
+    - arrowbreak
+    - metaphysical
+    - angelic
+    - spirits
+  message: "&5&l* SILENCED&r &7[%duration%s] &5&l*"
+  modified-message: "&5&l* SILENCED&r &8[&m%base-duration%s&r &8%duration%s] &5&l*"
+  attacker-message: "&5&l* SILENCE&r &8on &f%victim name% &7[%duration%s] &5&l*"
+  modified-attacker-message: "&5&l* SILENCE&r &8on &f%victim name% &8[&m%base-duration%s&r &8%duration%s] &5&l*"
+  sounds:
+    - 'ENTITY_WITHER_HURT:1.0:0.7'
+
+destruction:
+  enabled: true
+  damage-interval-ticks: 20
+  # Used by DESTRUCTION_AURA:<damage-per-tick>:<radius>:<duration-ticks>.
+  removed-effects:
+    - INCREASE_DAMAGE
+    - REGENERATION
+    - ABSORPTION
+    - HASTE
+
+rage:
+  combo-reset-ticks: 60
+
+chain-lifesteal:
+  # Used by CHAIN_LIFESTEAL:<min-damage>:<max-damage>:<radius>.
+  attacker-message: "&4&l** CHAIN LIFESTEAL ** &7(&c+%amount% HP&7)"
+  victim-message: "&4&l** CHAIN LIFESTEAL ** &7(&c-%amount% HP&7)"
+
+lifesteal:
+  # Used by LIFESTEAL_ACCURATE:<min-damage>:<max-damage>:lifesteal.
+  attacker-message: "&c&l** LIFESTEAL ** &7(&c+%amount% HP&7)"
+  victim-message: "&c&l** LIFESTEAL ** &7(&c-%amount% HP&7)"
+
+demonic-lifesteal:
+  # Used by LIFESTEAL_ACCURATE:<min-damage>:<max-damage>:demonic-lifesteal.
+  attacker-message: "&d&l** DEMONIC LIFESTEAL ** &7(&c+%amount% HP&7)"
+  victim-message: "&d&l** DEMONIC LIFESTEAL ** &7(&c-%amount% HP&7)"
+
+paradox:
+  # Used by PARADOX_HEAL:<damage-divisor>:<radius>.
+  message: "&c&l** PARADOX **"
+
+blood-lust:
+  # Empty means no chat notification. Placeholders:
+  # %amount% = HP healed, %damage% = bleed damage, %victim name% = bleeding player.
+  message: ""
+
+blood-link:
+  # Empty means no chat notification. Placeholders:
+  # %amount% = HP healed, %guardian name% = damaged guardian.
+  message: ""
+
+death-save-enchants:
+  phoenix:
+    enabled: true
+    display-name: "Phoenix"
+    # The addon watches lethal damage directly for these slots.
+    slots:
+      - HELMET
+      - CHESTPLATE
+      - LEGGINGS
+      - BOOTS
+    souls-per-use: 500
+    health: full
+    # native = use the chance/cooldown from the matching AE enchant level.
+    chance: native
+    cooldown-seconds: native

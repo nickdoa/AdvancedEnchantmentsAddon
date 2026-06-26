@@ -1,0 +1,147 @@
+dimensional-shift:
+  # Defaults for the DIMENSIONAL_SHIFT effect.
+  # Use DIMENSIONAL_SHIFT @Attacker in AE DEFENSE set config.
+  # This file controls the ability's damage, bursts, height, sounds, and radius.
+
+  # Chat message sent when the ability activates.
+  # Placeholders:
+  # %attacker name% = player the effect came from
+  # %victim name% = player being hit by the falling blocks
+  message: "&5&l*** DIMENSIONAL SHIFT *** &8from &c&l%attacker name%"
+
+  # How far away players can be and still see the activation message.
+  message-radius-blocks: 16
+
+  # Radius around the set wearer that gets hit by this ability.
+  # 0 = only hit the attacker who triggered the proc.
+  # Any number above 0 = hit all other players within that many blocks of the set wearer.
+  target-radius-blocks: 0
+
+  # Safety cap for the number of falling block layers an enchant line can request.
+  max-bursts: 5
+
+  # Number of falling block layers dropped per proc.
+  bursts: 2
+
+  # Base height above each target where the falling blocks spawn.
+  spawn-height: 5.0
+
+  # Delay between each falling block layer. 20 ticks = 1 second.
+  layer-delay-ticks: 14
+
+  # Damage dealt each time a layer collides with the target.
+  # Minecraft uses 2.0 damage = 1 heart, so 10.0 = 5 hearts.
+  damage-per-burst: 10.0
+
+  # How long the target is marked as frozen after a layer hits. 20 ticks = 1 second.
+  freeze-ticks: 120
+
+  # When false, players are still locked in place but do not get the vanilla powder-snow freeze overlay.
+  show-vanilla-freeze-effect: false
+
+  # After the final layer hits, wait this many ticks before immediately unfreezing.
+  unfreeze-delay-ticks: 2
+
+  # Extra spawn height added on top of the height from the enchant effect.
+  # Example: spawn-height 5.0 with 3.0 here spawns about 8 blocks above.
+  spawn-height-bonus: 3.0
+
+  # Maximum width/depth of each irregular falling block patch.
+  # 6 means the layer is roughly a 6x6 patch, with random missing blocks.
+  patch-size: 6
+
+  # Horizontal distance from the target where falling blocks count as a hit.
+  collision-radius: 2.0
+
+  # Cleanup timer for falling blocks that miss or never collide. 20 ticks = 1 second.
+  fall-timeout-ticks: 80
+
+  # Random block types used in each falling layer.
+  materials:
+    - END_STONE
+    - NETHERRACK
+
+  # Sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+  # Format: SOUND:VOLUME:PITCH
+  # Played at the set wearer location when the activation message appears.
+  # Set to [] to silence this activation sound.
+  activation-sounds:
+    - 'ENTITY_ENDERMAN_TELEPORT:1.0:0.7'
+
+  # Sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+  # Format: SOUND:VOLUME:PITCH
+  # Played at the target location when a layer hits.
+  # Set to [] to silence this hit sound.
+  hit-sounds:
+    - 'ENTITY_WITHER_BREAK_BLOCK:1.0:0.9'
+
+winter-mercy:
+  # Defaults for the WINTERS_MERCY effect.
+  # Use WINTERS_MERCY @Victim in AE DEFENSE set config.
+  # This file controls the snowball rain, temporary snow ground, sounds, and damage reduction.
+
+  # Chat message sent when the ability activates.
+  # Placeholders:
+  # %attacker name% = player the effect came from
+  # %victim name% = player receiving Winter's Mercy
+  message: "&b&l*** WINTER'S MERCY ***"
+
+  # How far away players can be and still see the activation message.
+  message-radius-blocks: 16
+
+  # Plugin-side proc chance for WINTERS_MERCY when used by an AE set.
+  # Use WINTERS_MERCY @Victim in the set file instead of AE inline %chance.
+  chance-percent: 20.0
+
+  # Plugin-side cooldown after WINTERS_MERCY successfully activates for a player.
+  # Keep the AE set event cooldown at 0 if you want this setting to control the ability by itself.
+  cooldown-seconds: 10
+
+  # How long the temporary damage reduction and snow ground last. 20 ticks = 1 second.
+  duration-ticks: 200
+
+  # Extra incoming damage reduction while Winter's Mercy is active.
+  # This stacks multiplicatively on top of the AE set bonus DECREASE_DAMAGE:5.
+  damage-reduction-percent: 10.0
+
+  # Radius of the one-time snowball layer and temporary snow ground around the protected player.
+  radius-blocks: 4.0
+
+  # Height above the protected player where snowballs spawn.
+  snowball-spawn-height: 7.0
+
+  # Number of harmless snowballs spawned in the one-time falling layer.
+  snowballs-per-layer: 18
+
+  # Straight downward speed for the visual snowballs.
+  # Higher values fall faster. They no longer aim at or home toward the player.
+  snowball-fall-speed: 0.75
+
+  # Tiny random horizontal movement for each snowball.
+  # 0.0 makes them fall perfectly straight down.
+  snowball-horizontal-drift: 0.04
+
+  # Cleanup timer for snowballs that miss or never collide. 20 ticks = 1 second.
+  snowball-fall-timeout-ticks: 60
+
+  # When true, blocks under the protected player are temporarily replaced with ground-materials.
+  snow-ground: true
+
+  # Random block types used for the temporary floor patch.
+  ground-materials:
+    - SNOW_BLOCK
+    - ICE
+
+  # Sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+  # Format: SOUND:VOLUME:PITCH
+  # Played at the protected player location when Winter's Mercy activates.
+  # Set to [] to silence this activation sound.
+  activation-sounds:
+    - 'BLOCK_AMETHYST_BLOCK_CHIME:1.0:1.2'
+
+  # Sounds: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+  # Format: SOUND:VOLUME:PITCH
+  # Played when one of the visual snowballs hits the protected player.
+  # Set to [] to silence this hit sound.
+  hit-sounds:
+    - 'BLOCK_SNOW_BREAK:1.0:0.8'
