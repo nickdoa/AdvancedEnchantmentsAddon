@@ -188,6 +188,14 @@ public final class AdvancedEnchantmentsAddonPlugin extends JavaPlugin implements
             "item-lore",
             "item-lores"
     ));
+    private static final List<String> ADDON_GIVE_ITEM_NAMES = Arrays.asList(
+            "heroicupgrade",
+            "godlytransmogscroll",
+            "heroicblackscroll",
+            "holywater",
+            "loreline"
+    );
+    private static final List<String> GIVE_AMOUNT_COMPLETIONS = Arrays.asList("1", "8", "16", "32", "64");
     private static final java.util.Set<String> METAPHYSICAL_SLOW_ENCHANTS =
             new java.util.HashSet<>(Arrays.asList(
                     "trap",
@@ -3876,6 +3884,25 @@ public final class AdvancedEnchantmentsAddonPlugin extends JavaPlugin implements
                 || handleLoreLineGiveItemCommand(sender, commandLine);
     }
 
+    private boolean handleAeaGiveItemCommand(CommandSender sender, String label, String[] args) {
+        if (args.length < 3) {
+            sendAeaGiveItemUsage(sender, label);
+            return true;
+        }
+
+        if (handleAddonGiveItemCommand(sender, "ae " + String.join(" ", args))) {
+            return true;
+        }
+
+        sendAeaGiveItemUsage(sender, label);
+        return true;
+    }
+
+    private void sendAeaGiveItemUsage(CommandSender sender, String label) {
+        sender.sendMessage(ChatColor.YELLOW + "Usage: /" + label
+                + " giveitem <player> <heroicupgrade|godlytransmogscroll|heroicblackscroll|holywater|loreline> [amount] [success|max]");
+    }
+
     private boolean handleHeroicGiveItemCommand(CommandSender sender, String commandLine) {
         if (commandLine == null) {
             return false;
@@ -4116,6 +4143,47 @@ public final class AdvancedEnchantmentsAddonPlugin extends JavaPlugin implements
 
     private static boolean isLoreLineItemName(String value) {
         return LORE_LINE_ITEM_NAMES.contains(normalize(value));
+    }
+
+    private static boolean hasAnyAddonGiveItemPermission(CommandSender sender) {
+        return canGiveHeroicUpgrade(sender)
+                || canGiveGodlyTransmogScroll(sender)
+                || canGiveHeroicBlackScroll(sender)
+                || canGiveHolyWater(sender)
+                || canGiveLoreLine(sender);
+    }
+
+    private static boolean canGiveAddonItem(CommandSender sender, String itemName) {
+        return (isHeroicUpgradeItemName(itemName) && canGiveHeroicUpgrade(sender))
+                || (isGodlyTransmogScrollItemName(itemName) && canGiveGodlyTransmogScroll(sender))
+                || (isHeroicBlackScrollItemName(itemName) && canGiveHeroicBlackScroll(sender))
+                || (isHolyWaterItemName(itemName) && canGiveHolyWater(sender))
+                || (isLoreLineItemName(itemName) && canGiveLoreLine(sender));
+    }
+
+    private static boolean canGiveHeroicUpgrade(CommandSender sender) {
+        return sender.hasPermission("ae.giveitem")
+                || sender.hasPermission("advancedenchantmentsaddon.heroicupgrade.give");
+    }
+
+    private static boolean canGiveGodlyTransmogScroll(CommandSender sender) {
+        return sender.hasPermission("ae.giveitem")
+                || sender.hasPermission("advancedenchantmentsaddon.godlytransmog.give");
+    }
+
+    private static boolean canGiveHeroicBlackScroll(CommandSender sender) {
+        return sender.hasPermission("ae.giveitem")
+                || sender.hasPermission("advancedenchantmentsaddon.heroicblackscroll.give");
+    }
+
+    private static boolean canGiveHolyWater(CommandSender sender) {
+        return sender.hasPermission("ae.giveitem")
+                || sender.hasPermission("advancedenchantmentsaddon.holywater.give");
+    }
+
+    private static boolean canGiveLoreLine(CommandSender sender) {
+        return sender.hasPermission("ae.giveitem")
+                || sender.hasPermission("advancedenchantmentsaddon.loreline.give");
     }
 
     private static int parseGodlyTransmogAmount(String[] args) {
@@ -11024,6 +11092,10 @@ public final class AdvancedEnchantmentsAddonPlugin extends JavaPlugin implements
             return true;
         }
 
+        if (args.length >= 1 && args[0].equalsIgnoreCase("giveitem")) {
+            return handleAeaGiveItemCommand(sender, label, args);
+        }
+
         if (args.length >= 2 && args[0].equalsIgnoreCase("test")) {
             if (!sender.hasPermission("advancedenchantmentsaddon.test")) {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
@@ -11074,6 +11146,9 @@ public final class AdvancedEnchantmentsAddonPlugin extends JavaPlugin implements
         }
 
         sender.sendMessage(ChatColor.YELLOW + "Usage: /" + label + " reload");
+        if (hasAnyAddonGiveItemPermission(sender)) {
+            sender.sendMessage(ChatColor.YELLOW + "Usage: /" + label + " giveitem <player> <item> [amount] [success|max]");
+        }
         if (sender.hasPermission("advancedenchantmentsaddon.test")) {
             sender.sendMessage(ChatColor.YELLOW + "Usage: /" + label + " test <dimensionalshift|wintersmercy> [player]");
         }
@@ -11135,14 +11210,20 @@ public final class AdvancedEnchantmentsAddonPlugin extends JavaPlugin implements
             if (sender.hasPermission("advancedenchantmentsaddon.reload")) {
                 options.add("reload");
             }
+            if (hasAnyAddonGiveItemPermission(sender)) {
+                options.add("giveitem");
+            }
             if (sender.hasPermission("advancedenchantmentsaddon.test")) {
                 options.add("test");
             }
-            return options;
+            return filterCompletions(options, args[0]);
+        }
+        if (args.length >= 2 && args[0].equalsIgnoreCase("giveitem")) {
+            return tabCompleteAeaGiveItem(sender, args);
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("test")
                 && sender.hasPermission("advancedenchantmentsaddon.test")) {
-            return Arrays.asList("dimensionalshift", "wintersmercy");
+            return filterCompletions(Arrays.asList("dimensionalshift", "wintersmercy"), args[1]);
         }
         if (args.length == 3 && args[0].equalsIgnoreCase("test")
                 && (normalize(args[1]).equals("dimensionalshift") || normalize(args[1]).equals("wintersmercy"))
@@ -11151,9 +11232,63 @@ public final class AdvancedEnchantmentsAddonPlugin extends JavaPlugin implements
             for (Player player : Bukkit.getOnlinePlayers()) {
                 players.add(player.getName());
             }
-            return players;
+            return filterCompletions(players, args[2]);
         }
         return Collections.emptyList();
+    }
+
+    private List<String> tabCompleteAeaGiveItem(CommandSender sender, String[] args) {
+        if (!hasAnyAddonGiveItemPermission(sender)) {
+            return Collections.emptyList();
+        }
+
+        if (args.length == 2) {
+            List<String> players = new java.util.ArrayList<>();
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                players.add(player.getName());
+            }
+            return filterCompletions(players, args[1]);
+        }
+
+        if (args.length == 3) {
+            return filterCompletions(getPermittedAddonGiveItemNames(sender), args[2]);
+        }
+
+        if (args.length == 4 && canGiveAddonItem(sender, args[2])) {
+            return filterCompletions(GIVE_AMOUNT_COMPLETIONS, args[3]);
+        }
+
+        if (args.length == 5 && canGiveAddonItem(sender, args[2])) {
+            if (isHeroicUpgradeItemName(args[2]) || isHeroicBlackScrollItemName(args[2])) {
+                return filterCompletions(Arrays.asList("success:100", "success:75", "success:50"), args[4]);
+            }
+            if (isHolyWaterItemName(args[2])) {
+                return filterCompletions(Arrays.asList("max:4", "max:5", "max:6"), args[4]);
+            }
+        }
+
+        return Collections.emptyList();
+    }
+
+    private static List<String> getPermittedAddonGiveItemNames(CommandSender sender) {
+        List<String> itemNames = new java.util.ArrayList<>();
+        for (String itemName : ADDON_GIVE_ITEM_NAMES) {
+            if (canGiveAddonItem(sender, itemName)) {
+                itemNames.add(itemName);
+            }
+        }
+        return itemNames;
+    }
+
+    private static List<String> filterCompletions(List<String> options, String input) {
+        String prefix = input == null ? "" : input.toLowerCase(Locale.ROOT);
+        List<String> matches = new java.util.ArrayList<>();
+        for (String option : options) {
+            if (option.toLowerCase(Locale.ROOT).startsWith(prefix)) {
+                matches.add(option);
+            }
+        }
+        return matches;
     }
 
     private static final class DeathSaveRule {

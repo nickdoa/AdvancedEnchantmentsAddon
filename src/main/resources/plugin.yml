@@ -12,8 +12,8 @@ description: Addon features and fixes for AdvancedEnchantments.
 
 commands:
   aeaddon:
-    description: Reload AdvancedEnchantmentsAddon configuration and run temporary tests.
-    usage: /aeaddon reload
+    description: Reload AdvancedEnchantmentsAddon configuration, give addon items, and run temporary tests.
+    usage: /aeaddon <reload|giveitem>
     aliases:
       - aea
       - advancedenchantmentsaddon
@@ -35,17 +35,17 @@ permissions:
     description: Allows bypassing the /bless cooldown.
     default: op
   advancedenchantmentsaddon.heroicupgrade.give:
-    description: Allows giving Heroic Upgrades through /ae giveitem.
+    description: Allows giving Heroic Upgrades through /ae or /aea giveitem.
     default: op
   advancedenchantmentsaddon.godlytransmog.give:
-    description: Allows giving Godly Transmog Scrolls through /ae giveitem.
+    description: Allows giving Godly Transmog Scrolls through /ae or /aea giveitem.
     default: op
   advancedenchantmentsaddon.heroicblackscroll.give:
-    description: Allows giving Heroic Black Scrolls through /ae giveitem.
+    description: Allows giving Heroic Black Scrolls through /ae or /aea giveitem.
     default: op
   advancedenchantmentsaddon.holywater.give:
-    description: Allows giving Holy Water through /ae giveitem.
+    description: Allows giving Holy Water through /ae or /aea giveitem.
     default: op
   advancedenchantmentsaddon.loreline.give:
-    description: Allows giving Lore Lines through /ae giveitem.
+    description: Allows giving Lore Lines through /ae or /aea giveitem.
     default: op

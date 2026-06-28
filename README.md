@@ -46,8 +46,17 @@ Soul costs that still exist in addon mechanics, such as death-save, Inertia, and
 | Command | Description |
 | --- | --- |
 | `/aea reload` | Reloads the addon config files. |
+| `/aea giveitem <player> <item> [amount] [success|max]` | Gives addon items with tab completion. |
 | `/advancedenchantmentsaddon reload` | Full alias for `/aea reload`. |
 | `/bless` | Removes configured negative potion effects from yourself. |
+
+Addon item names for `/aea giveitem`:
+
+- `heroicupgrade`
+- `godlytransmogscroll`
+- `heroicblackscroll`
+- `holywater`
+- `loreline`
 
 ## Permissions
 
@@ -57,11 +66,11 @@ Soul costs that still exist in addon mechanics, such as death-save, Inertia, and
 | `advancedenchantmentsaddon.test` | op | Allows temporary addon test commands. |
 | `advancedenchantmentsaddon.bless` | true | Allows `/bless`. |
 | `advancedenchantmentsaddon.bless.cooldown.bypass` | op | Bypasses the `/bless` cooldown. |
-| `advancedenchantmentsaddon.heroicupgrade.give` | op | Allows giving Heroic Upgrades through `/ae giveitem`. |
-| `advancedenchantmentsaddon.godlytransmog.give` | op | Allows giving Godly Transmog Scrolls through `/ae giveitem`. |
-| `advancedenchantmentsaddon.heroicblackscroll.give` | op | Allows giving Heroic Black Scrolls through `/ae giveitem`. |
-| `advancedenchantmentsaddon.holywater.give` | op | Allows giving Holy Water through `/ae giveitem`. |
-| `advancedenchantmentsaddon.loreline.give` | op | Allows giving Lore Lines through `/ae giveitem`. |
+| `advancedenchantmentsaddon.heroicupgrade.give` | op | Allows giving Heroic Upgrades through `/ae giveitem` or `/aea giveitem`. |
+| `advancedenchantmentsaddon.godlytransmog.give` | op | Allows giving Godly Transmog Scrolls through `/ae giveitem` or `/aea giveitem`. |
+| `advancedenchantmentsaddon.heroicblackscroll.give` | op | Allows giving Heroic Black Scrolls through `/ae giveitem` or `/aea giveitem`. |
+| `advancedenchantmentsaddon.holywater.give` | op | Allows giving Holy Water through `/ae giveitem` or `/aea giveitem`. |
+| `advancedenchantmentsaddon.loreline.give` | op | Allows giving Lore Lines through `/ae giveitem` or `/aea giveitem`. |
 
 ## Config Files
 
