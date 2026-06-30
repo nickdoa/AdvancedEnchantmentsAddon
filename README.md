@@ -32,15 +32,6 @@ This public build does not include the Active Soul Enchant System and does not h
 - Summon protection and summon throttling for guards, spirits, ruse zombies, obsidian guardians, and epidemic carriers.
 - Custom set effects for Dimensional Shift and Winter's Mercy.
 
-## Not Included
-
-- No SoulGems dependency.
-- No SoulGems inventory draining.
-- No Soul Mode checks.
-- No while-equipped Active Soul upkeep loop.
-
-Soul costs that still exist in addon mechanics, such as death-save, Inertia, and Immortal, use souls stored on the relevant AdvancedEnchantments item.
-
 ## Commands
 
 | Command | Description |
